@@ -36,7 +36,7 @@ pip install Flask customtkinter psutil
 Clone the repository:
 
 ```bash
-git clone HostingFolderPython
+git clone [HostingFolderPython](https://github.com/AESMSIX-OFFICIAL/HostingFolderPython)
 cd HostingFolderPython
 ```
 
