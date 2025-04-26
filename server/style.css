@@ -1,0 +1,57 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    color: #2c3e50;
+  }
+  .file-list {
+    border-top: 2px solid #ccc;
+    padding-top: 10px;
+  }
+  .file-item {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.05);
+  }
+  .file-name {
+    font-weight: bold;
+    word-break: break-all; /* Memastikan nama file panjang terpotong */
+    margin-right: 10px; /* Tambah sedikit ruang antara nama file dan tombol */
+  }
+  .file-item div {
+      /* Style div yang membungkus tombol untuk kontrol layout */
+      flex-shrink: 0; /* Mencegah div ini menyusut */
+  }
+  .btn {
+    background-color: #3498db;
+    color: white;
+    padding: 6px 12px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.2s;
+    display: inline-block; /* Agar padding dan margin bekerja dengan baik */
+    text-align: center; /* Untuk teks di tengah tombol */
+  }
+  .btn:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Tambahan CSS dasar untuk kasus tidak ada file */
+  .file-list .file-item:only-child .file-name {
+      font-weight: normal;
+      color: #666;
+  }

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>File Server Lokal</title>
+  <link rel="stylesheet" href="/style.css"> {# <-- Diubah dari /web.css menjadi /style.css #}
+</head>
+<body>
+  <h1>📁 Server Berkas Lokal</h1>
+  <div class="file-list">
+    {% for file in files %}
+      <div class="file-item">
+        <span class="file-name">{{ file }}</span>
+        <div>
+            {# url_for dengan _external dan _scheme mungkin tidak ideal untuk semua deployment,
+               tapi untuk server lokal sederhana ini bisa berfungsi. #}
+          <a class="btn" href="{{ url_for('open_file', filename=file, _external=True, _scheme='http') }}" target="_blank">Buka</a>
+          <a class="btn" href="{{ url_for('download_file', filename=file, _external=True, _scheme='http') }}">Download</a>
+        </div>
+      </div>
+    {% else %}
+        {# Tambahkan ini agar ada pesan jika tidak ada file, sesuai template sebelumnya #}
+        <div class="file-item">
+            <span class="file-name">Tidak ada berkas ditemukan.</span>
+        </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
