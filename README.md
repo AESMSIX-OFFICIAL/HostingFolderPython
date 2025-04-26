@@ -36,8 +36,8 @@ pip install Flask customtkinter psutil
 Clone the repository:
 
 ```bash
-git clone <URL_REPO_ANDA>
-cd <nama_folder_repo>
+git clone HostingFolderPython
+cd HostingFolderPython
 ```
 
 ### Running the Application
