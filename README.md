@@ -30,11 +30,40 @@ Make sure you have Python 3.8 or higher installed on your system. You will also 
 * `psutil`
 
 You can install them using pip:
-
-bash
 pip install Flask customtkinter psutil
 
-Installation
- 1.Clone the repository:
-   git clone <URL_REPO_ANDA>
-   cd <nama_folder_repo>
+
+📂 Project Structure
+your_project_folder/
+├── main.py               # Entry point for the application
+├── config.py             # Global configuration constants and paths
+├── common/               # Utility functions
+│   └── file_utils.py     # Functions for handling log and setting files
+├── server/               # Flask server code and web files
+│   ├── flask_server.py   # The Flask application definition and routes
+│   ├── main.html         # HTML template for the web interface
+│   └── style.css         # CSS for the web interface
+├── core/                 # Core application logic
+│   └── server_manager.py # Manages the Flask server subprocess
+└── gui/                  # CustomTkinter GUI code
+    ├── app.py            # Main CustomTkinter application class
+    └── frames/           # Individual GUI components (CTkFrame subclasses)
+        ├── __init__.py   # Makes 'frames' a Python package
+        ├── status_frame.py # Frame for server status and folder selection
+        ├── stats_frame.py  # Frame for network statistics display
+        ├── device_frame.py # Frame for connected/blocked IP list and controls
+        └── log_frame.py    # Frame for displaying server log output
+
+🏗️ Architecture
+
+The application follows a modular architecture:
+
+    main.py starts the gui/app.py.
+    gui/app.py is the main CustomTkinter application window. It initializes the core/server_manager.py and the various GUI frames (gui/frames/).
+    core/server_manager.py is responsible for starting and stopping the server/flask_server.py as a separate subprocess using subprocess.Popen. It captures the server's standard output and standard error using threads and puts them into a queue. It also tracks the server's process status.
+    The GUI (gui/app.py and its frames) communicates with the ServerManager. The GUI's main loop uses self.after to periodically update the UI by polling the ServerManager's status, processing the log queue, and reading data from the log/block files managed by common/file_utils.py.
+    server/flask_server.py is a standalone Flask application. When run by the ServerManager, it receives the served folder path via an environment variable. It handles web requests, lists files from the specified directory, serves files, and checks/updates the shared log (connected_ips.log) and blocklist (blocked_ips.txt) files in the logs/ directory using functions from common/file_utils.py. It also incorporates path traversal protection.
+    common/file_utils.py provides simple functions to read from and write to the .log and .txt files in the logs/ directory, used by both the server and the GUI to share persistent data (connected IPs, blocked IPs, last served folder).
+    config.py centralizes constants used across different modules.
+
+This separation of concerns allows the GUI to remain responsive while the server runs in a separate process, and makes the code more organized and maintainable.
